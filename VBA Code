@@ -1,1 +1,100 @@
+Sub challenge_1()
 
+'Sets table headings for output
+Cells(1, 9).Value = "Ticker"
+Cells(1, 10).Value = "Yearly Change"
+Cells(1, 11).Value = "Percent Change"
+Cells(1, 12).Value = "Total Stock Volume"
+Cells(2, 15).Value = "Greatest % Increase"
+Cells(3, 15).Value = "Greatest % Decrease"
+Cells(4, 15).Value = "Greatest Total Volume"
+Cells(1, 16).Value = "Ticker"
+Cells(1, 17).Value = "Vaue"
+
+'this code taken from an article on a vba macro to automatically takes the user to the next empty row
+Dim NumRows As Long
+NumRows = Range("A1", Range("A1").End(xlDown)).Rows.Count
+
+'initialises calculation vairables
+Dim ticker As String
+ticker = Cells(2, 1).Value
+
+Dim open_price As Double
+open_price = Cells(2, 3).Value
+
+Dim close_price As Double
+close_price = Cells(2, 6).Value
+
+Dim total_volume As Long
+total_volume = 0
+
+Dim greatest_increase As Double
+Dim greatest_decrease As Double
+Dim greatest_volume As Long
+Dim increase_ticker As String
+Dim decrease_ticker As String
+Dim volume_ticker As String
+
+
+'initialises output variables (not strictly necessary but makes code cleaner)
+Dim yearly_change As Double
+Dim percentage_change As Double
+
+Dim j As Integer
+j = 2
+
+For i = 2 To NumRows
+
+    If ticker = Cells(i, 1).Value Then
+    
+        close_price = Cells(i, 6).Value
+        total_volume = total_volume + Cells(i, 7).Value
+    
+    Else
+    
+        Cells(j, 9).Value = ticker
+        yearly_change = close_price - open_price
+        'this needs to have conditional formating
+        Cells(j, 10).Value = yearly_change
+        percentage_change = yearly_change / open_price
+        'this needs to be formatted as a percent
+        Cells(j, 11).Value = percentage_change
+        Cells(j, 12).Value = total_volume
+        
+        'logic for bonus
+        If percent_increase > greatest_increase Then
+            
+            greatest_increase = percent_increase
+            increase_ticker = ticker
+            
+        ElseIf percent_increase < greatest_decrease Then
+            
+            greatest_decrease = percent_increase
+            decrease_ticker = ticker
+            
+        End If
+        
+        If total_volume > greatest_volume Then
+            
+            greatest_volume = total_volume
+            volume_ticker = ticker
+        
+        'reset variables
+        ticker = Cells(i, 1).Value
+        open_price = Cells(i, 3).Value
+        total_volume = 0
+        j = j + 1
+    
+    End If
+    
+Next i
+
+'output greatest values
+Cells(2, 16).Value = increase_ticker
+Cells(2, 17).Value = greatest_increase
+Cells(3, 16).Value = decrease_ticker
+Cells(3, 17).Value = greatest_decrease
+Cells(4, 16).Value = volume_ticker
+Cells(4, 17).Value = greatest_volume
+
+End Sub
