@@ -12,7 +12,7 @@ Cells(1, 16).Value = "Ticker"
 Cells(1, 17).Value = "Vaue"
 
 'this code taken from an article on a vba macro to automatically takes the user to the next empty row
-Dim NumRows As Long
+Dim NumRows As Double
 NumRows = Range("A1", Range("A1").End(xlDown)).Rows.Count
 
 'initialises calculation vairables
@@ -25,12 +25,15 @@ open_price = Cells(2, 3).Value
 Dim close_price As Double
 close_price = Cells(2, 6).Value
 
-Dim total_volume As Long
+Dim total_volume As Double
 total_volume = 0
 
 Dim greatest_increase As Double
 Dim greatest_decrease As Double
-Dim greatest_volume As Long
+Dim greatest_volume As Double
+greatest_increase = 0
+greatest_decrease = 0
+greatest_volume = 0
 Dim increase_ticker As String
 Dim decrease_ticker As String
 Dim volume_ticker As String
@@ -84,6 +87,8 @@ For i = 2 To NumRows
         open_price = Cells(i, 3).Value
         total_volume = 0
         j = j + 1
+        
+        End If
     
     End If
     
