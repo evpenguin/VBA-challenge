@@ -1,6 +1,6 @@
-Attribute VB_Name = "Module1"
 Sub challenge_1()
 
+'code inspired by Tom Pisel from code he pasted into #useful-resources on slack on looping through worksheets
 Dim Current As Worksheet
 For Each Current In ThisWorkbook.Worksheets
 
@@ -17,7 +17,7 @@ For Each Current In ThisWorkbook.Worksheets
     Cells(1, 16).Value = "Ticker"
     Cells(1, 17).Value = "Vaue"
 
-    'this code taken from an article on a vba macro to automatically takes the user to the next empty row
+    'this code taken from an article on a vba macro to automatically takes the user to the next empty row (link in README)
     Dim NumRows As Double
     NumRows = Range("A1", Range("A1").End(xlDown)).Rows.Count
 
@@ -122,7 +122,7 @@ For Each Current In ThisWorkbook.Worksheets
     Cells(4, 16).Value = volume_ticker
     Cells(4, 17).Value = greatest_volume
     
-    'auto fit columns
+    'auto fit columns, this code taken from a microsoft q&a webpage (link in README)
     Columns("I:L").Columns.AutoFit
     Columns("O:Q").Columns.AutoFit
     
